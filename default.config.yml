@@ -10,37 +10,46 @@ remove_desktop_icons: false
 set_sound_scheme: true
 
 install_windows_updates: true
+windows_updates_reboot: true
 update_categories:
   # You can install only specific updates by uncommenting it
   # * - installs all updates
-  - "*"
-  # - Critical Updates
+  # - "*"
+  - Critical Updates
   # - Definition Updates
   # - Developer Kits
   # - Feature Packs
-  # - Security Updates
+  - Security Updates
   # - Service Packs
   # - Tools
-  # - Update Rollups
+  - Update Rollups
   # - Updates
   # - Upgrades
 
 change_power_plan: true
-power_plan: "high performance"
+# high_performance
+# balanced
+# power_saver
+power_plan: "high_performance"
 
+install_chocolatey_packages: true
 choco_installed_packages:
-  - 7zip
-  - Firefox
-  - adobereader
-  - auto-dark-mode
+  # installs 2019.2.2.20191 version of the adobe reader
+  - name: adobereader
+    version: "2022.002.20191"
+  # installs latest version of the Firefox while ignoring the package checksum
+  - name: Firefox
+    state: latest
+    choco_args: --ignorechecksum
+  # installs awscli, but won't update it
   - awscli
-  - choco-cleaner
-  - choco-upgrade-all-at-startup
+  - Firefox
   - git
   - golang
   - jre8
   - kubernetes-cli
   - microsoft-windows-terminal
+  - peazip
   - powertoys
   - python3
   - sharex
@@ -50,10 +59,19 @@ choco_installed_packages:
   - vscode
   - zoom
 
+install_winget_packages: true
+winget_packages:
+  # - name: "Auto Dark Mode"
+  #   source: winget
+  - name: WinDynamicDesktop
+    source: winget
+
 install_fonts: true
 installed_nerdfonts:
   - FiraCode
   - FantasqueSansMono
+
+install_ohmyposh: true
 
 # List of features: "Get-WindowsOptionalFeature -Online"
 install_windows_features: false
@@ -114,3 +132,17 @@ bloatware:
   - Microsoft.ZuneMusic
   - Microsoft.ZuneVideo
   - MicrosoftTeams
+
+configure_storage_sense: true
+storage_sense:
+  enabled: true
+  run_frequency: 1
+  delete_unused_files: true
+  delete_recycle_bin_files: true
+  recycle_bin_age: 14
+  delete_downloads_files: true
+  downloads_age: 14
+
+defrag_volumes: true
+include_volumes:
+  - C
